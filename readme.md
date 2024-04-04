@@ -2,7 +2,7 @@ Self made model entire process.
 
 
 Current Param. 
-
+![mingpt](cube.jpg)
 # hyperparameters
 batch_size = 64 # how many independent sequences will we process in parallel?
 block_size = 256 # what is the maximum context length for predictions?
@@ -49,5 +49,8 @@ Estimated total training time:32 days, 787 hours, and 15 minutes
 
 This not good.(Also this was made from my work computer so its kind of cute, this time should be basically cut in half by running on my home computer.)
 
-Can also be speed up by using CUDA...
+Can also be speed up by using CUDA... Thinking about it, waiting for ROCM to be up to date. 
+
+
+
 
