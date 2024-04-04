@@ -1,10 +1,17 @@
-Self made model entire process.
+# Self made model entire process.
 
 
 
 
 ![Cube](cube.jpeg)
 
+
+
+
+
+
+
+#---------------------------------
 # hyperparameters
 batch_size = 64 
 block_size = 256 
