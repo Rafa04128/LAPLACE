@@ -37,7 +37,7 @@ def save_text_to_file(text, output_file_path):
 if __name__ == '__main__':
     start_time = time.time()
     
-    directory_path = r"C:\Users\rafa0\Desktop\pj\fuckgit\LAPLACE\data\books"
+    directory_path = r"C:\Users\rafa0\Desktop\pj\laplace\LAPLACE\data\books"
     output_directory = os.path.join(os.getcwd(), "saved_files")
     os.makedirs(output_directory, exist_ok=True)
     output_file_path = os.path.join(output_directory, "output.txt")
