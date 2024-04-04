@@ -2,7 +2,9 @@ Self made model entire process.
 
 
 Current Param. 
-![Cube](C:\Users\LINES\Desktop\project\pj\src\image\cube.jpeg)
+
+![Cube](cube.jpeg)
+
 # hyperparameters
 batch_size = 64 # how many independent sequences will we process in parallel?
 block_size = 256 # what is the maximum context length for predictions?
