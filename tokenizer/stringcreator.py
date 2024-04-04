@@ -3,6 +3,7 @@ import pdfplumber
 import logging
 import time
 from multiprocessing import Pool, cpu_count
+from functools import partial
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -19,12 +20,6 @@ def extract_text_from_pdf(pdf_file_path):
         logger.error(f"An unexpected error occurred while reading {pdf_file_path}: {e}")
     return text
 
-def extract_text_from_pdfs_parallel(pdf_file_paths):
-    """Extracts text from multiple PDFs in parallel."""
-    with Pool(cpu_count()) as pool:
-        texts = pool.map(extract_text_from_pdf, pdf_file_paths)
-    return ''.join(texts)
-
 def save_text_to_file(text, output_file_path):
     """Saves the extracted text to a file."""
     try:
@@ -36,7 +31,6 @@ def save_text_to_file(text, output_file_path):
 
 if __name__ == '__main__':
     start_time = time.time()
-    
     directory_path = r"C:\Users\rafa0\Desktop\pj\laplace\LAPLACE\data\books"
     output_directory = os.path.join(os.getcwd(), "saved_files")
     os.makedirs(output_directory, exist_ok=True)
@@ -48,7 +42,12 @@ if __name__ == '__main__':
     else:
         # Extract text from PDFs
         pdf_file_paths = [os.path.join(directory_path, filename) for filename in os.listdir(directory_path) if filename.endswith(".pdf")]
-        text_data = extract_text_from_pdfs_parallel(pdf_file_paths)
+        pool = Pool(processes=cpu_count())
+        extract_partial = partial(extract_text_from_pdf)
+        texts = pool.map(extract_partial, pdf_file_paths)
+        pool.close()
+        pool.join()
+        text_data = ''.join(texts)
 
         # Save text to file
         save_text_to_file(text_data, output_file_path)
