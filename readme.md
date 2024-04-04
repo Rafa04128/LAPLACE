@@ -63,3 +63,16 @@ Can also be speed up by using CUDA... Thinking about it, waiting for ROCM to be 
 
 
 
+I want to have a fully running General Pre-trained transformer that its the main goal. 
+After that the Plan is to apply all the up to date inference, fine tunning and training methods. 
+LORA, Tokenization using bit compresion, Multi Agent MOE Mixture of experts. 
+Excited for the hardships of this path. 
+
+I will focus on code while I work around the computational power required. 
+
+
+
+
+
+To train with fear of overfitting 
+Estimated size of text data needed: 953.67 GB
