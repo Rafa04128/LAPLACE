@@ -2,6 +2,8 @@
 #include <vector>
 #include <thread>
 #include <future>
+#include <fstream> // Added for file operations
+#include <filesystem> // Added for directory iteration
 #include <podofo/podofo.h>
 
 std::string extractTextFromPDF(const std::string& pdfFilePath) {
