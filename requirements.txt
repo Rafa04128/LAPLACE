@@ -1,3 +1,22 @@
 pip3 install torch torchvision torchaudio
 
 pip install PyPDF2
+
+For CPP Code running
+CMAKE
+Install MSYS2
+
+
+
+Using Vcpkg fuck the previous ones.
+Code is alread in the HD
+
+Commands
+cd .\Vcpkg
+
+.\bootstrap-vcpkg.bat
+
+.\vcpkg integrate install 
+
+
+https://www.youtube.com/watch?v=0h1lC3QHLHU
