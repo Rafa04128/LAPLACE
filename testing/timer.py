@@ -2,17 +2,17 @@ import torch
 import time
 
 # Hyperparameters
-batch_size = 64
-block_size = 256
+batch_size = 1024
+block_size = 50304
 max_iters = 5000
 eval_interval = 500
 learning_rate = 3e-4
 device = 'cpu'
 eval_iters = 200
-n_embd = 384
-n_head = 6
-n_layer = 6
-dropout = 0.2
+n_embd = 784
+n_head = 12
+n_layer = 12
+dropout = 0.0
 
 # Calculate number of parameters
 num_params = (n_embd * block_size * n_layer +

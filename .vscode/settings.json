@@ -1,6 +1,3 @@
 {
-    "files.associations": {
-        "filesystem": "cpp"
-    },
-    "cmake.sourceDirectory": "C:/Users/LINES/Desktop/project/laplace/LAPLACE/tokenizer"
+    "cmake.sourceDirectory": "C:/Users/rafa0/Desktop/pj/laplace/LAPLACE/tokenizer"
 }

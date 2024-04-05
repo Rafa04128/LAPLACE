@@ -6,7 +6,7 @@ For CPP Code running
 CMAKE
 Install MSYS2
 
-
+"-DCMAKE_TOOLCHAIN_FILE=G:/VCPKG/vcpkg/scripts/buildsystems/vcpkg.cmake"
 
 Using Vcpkg fuck the previous ones.
 Code is alread in the HD
@@ -20,3 +20,5 @@ cd .\Vcpkg
 
 
 https://www.youtube.com/watch?v=0h1lC3QHLHU
+
+
