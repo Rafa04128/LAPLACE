@@ -1,28 +1,24 @@
 import os
-import PyPDF2
 import logging
 import time
 from concurrent.futures import ProcessPoolExecutor, as_completed
-import cProfile
+from pdfminer.high_level import extract_text
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def extract_text_from_pdfs(pdf_file_paths):
-    """Extracts text from a list of PDF files using PyPDF2."""
+    """Extracts text from a list of PDF files using pdfminer."""
     texts = []
     for pdf_file_path in pdf_file_paths:
-        text = ""
         try:
-            with open(pdf_file_path, 'rb') as file:
-                pdf_reader = PyPDF2.PdfReader(file)
-                for page in range(len(pdf_reader.pages)):
-                    text += pdf_reader.pages[page].extract_text()
+            text = extract_text(pdf_file_path)
+            if not text.strip():
+                logger.warning(f"No text found in {pdf_file_path}")
+            texts.append((os.path.splitext(os.path.basename(pdf_file_path))[0], text))
         except Exception as e:
             logger.error(f"An unexpected error occurred while reading {pdf_file_path}: {e}")
-            continue
-        texts.append((os.path.splitext(os.path.basename(pdf_file_path))[0], text))
     return texts
 
 def save_text_to_file(text_data, output_directory):
@@ -34,11 +30,11 @@ def save_text_to_file(text_data, output_directory):
                 file.write(text)
             logger.info(f"Text saved to {output_file_path}")
         except Exception as e:
-            logger.error(f"An error occurred while saving the text to file: {e}")
+            logger.error(f"An error occurred while saving the text to file {output_file_path}: {e}")
 
 def main():
     start_time = time.time()
-    directory_path = r"C:\Users\rafa0\Desktop\pj\laplace\LAPLACE\data\books"
+    directory_path = r"C:\Users\rafa0\Desktop\pj\laplace\LAPLACE\data\book"
     output_directory = os.path.join(os.getcwd(), "saved_files")
     os.makedirs(output_directory, exist_ok=True)
 
@@ -71,4 +67,4 @@ def main():
     logger.info(f"Execution time: {execution_time} seconds")
 
 if __name__ == '__main__':
-    cProfile.run('main()', sort='cumtime')
+    main()
