@@ -1,7 +1,9 @@
 import torch 
 import torch.nn as nn
 from torch.nn import functional as F
-
+import os 
+from bpe_tokenizer import encode, decode
+import torch.nn.utils.rnn as rnn_utils
 
 """"
 My cute model, this has a simple implementation of a tokenizer and is made to train smaller data set
@@ -22,24 +24,24 @@ n_embd = 384
 n_head = 6
 n_layer = 6
 dropout = 0.2
-# ------------
 
-
-torch.manual_seed(1337)
-
-with open('input.txt', 'r', encoding='utf-8') as f:
+"""with open('input.txt', 'r', encoding='utf-8') as f:
     text = f.read()
 
 # unique character present on the text
-chars = sorted(list(set(text)))
-vocab_size = len(chars)
-# Si lees esto eres puto
-# create mapping from characters to integers
 
-stoi = {ch:i for i,ch in enumerate(chars) }
+
+# Si lees esto eres puto
+# create mapping from characters to integers"""
+
+"""stoi = {ch:i for i,ch in enumerate(chars) }
 itos = { i:ch for i, ch in enumerate(chars) }
 encode = lambda s: [stoi[c] for c in s]            # encoder: take a string, output a list of integers
 decode = lambda l: ''.join([itos[i] for i in l])   # decoder: take a list of integers utput a string.
+"""
+""chars = sorted(list(set(text)))
+vocab_size = len(chars)
+tokens = list(text.encode("utf-8"))""
 
 #lets split the training and validation data 
 data = torch.tensor(encode(text), dtype=torch.long)
@@ -48,15 +50,32 @@ train_data = data[:n]
 val_data = data[n:]
 
 
-def get_batch(split):
-    #generate a small batch of data of input x and targets y
-    data = train_data if split == 'train' else val_data
-    ix = torch.randint(len(data) - block_size, (batch_size,))
-    x = torch.stack([data[i:i+block_size] for i in ix])
-    y = torch.stack([data[i+1:i+block_size+1] for i in ix])
-    x, y = x.to(device), y.to(device)
 
-    return x, y
+
+
+def get_batch(split):
+    data = train_data if split == 'train' else val_data
+    
+    # Get a batch of indices
+    indices = torch.randint(0, len(data) - block_size, (batch_size,))
+    
+    # Create a list of sequences
+    sequences = [data[i:i+block_size] for i in indices]
+    
+    # Build the token to index mapping
+    unique_tokens = set(data)
+    token_to_idx = {token: i for i, token in enumerate(unique_tokens)}
+    
+    # Convert the sequences to the appropriate indices
+    idx = torch.tensor([[token_to_idx[token] for token in seq] for seq in sequences], dtype=torch.long, device=device)
+    
+    # Pad the sequences to the maximum length
+    idx = rnn_utils.pad_sequence(idx, batch_first=True, padding_value=0)
+    
+    # Create the target tensor
+    y = idx[:, 1:].clone()
+    
+    return idx, y
 
 @torch.no_grad()
 def estimate_loss():

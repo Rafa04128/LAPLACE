@@ -4,4 +4,6 @@
 /.vscode
 /trash
 /gutenberg_books
-/sanitized_files
+/tokenizer/sanitized_files
+/tokenizer/dojo/__pycache__
+/model/__pycache__

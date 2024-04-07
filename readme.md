@@ -76,3 +76,21 @@ I will focus on code while I work around the computational power required.
 
 To train with fear of overfitting 
 Estimated size of text data needed: 953.67 GB
+
+
+
+Corrently on tokenization step.
+
+Thinbgs to do, fixed the gpt4 tokenizer.
+
+on mrclean.ipyng code needs to add the special tokens to the beginning and end of documents for training purpose
+
+
+Do later today. after F1 kekeke
+
+
+HARDWARE
+
+SAMSUNG 990 PRO 2TB
+
+MSI GEFORCE RTX 4090 GAMING TRIO 24G
